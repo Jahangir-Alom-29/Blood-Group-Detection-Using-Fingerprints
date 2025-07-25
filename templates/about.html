@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Group Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='aboutStyle.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img src="https://i.postimg.cc/vTYNfL1V/fingerprint.png" alt="Logo" class="logo">
+            <span class="brand-name">Know Your<br>Blood Group</span>
+        </div>
+        <div class="navbar-right">
+            <a href="/"><i class="fas fa-home"></i> Home </a>
+            <a href="/about"><i class="fas fa-brain"></i> About Model </a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="page-title">
+            <h1>About Our Blood Group Classification Model</h1>
+            <p>Advanced deep learning model for accurate blood group classification from fingerprint images</p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-tachometer-alt"></i>
+                <h2>Model Performance Metrics</h2>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <i class="fas fa-bullseye fa-2x"></i>
+                    <div class="metric-value">90%</div>
+                    <div class="metric-label">Test Accuracy</div>
+                </div>
+                <div class="metric-card">
+                    <i class="fas fa-check-circle fa-2x"></i>
+                    <div class="metric-value">88%</div>
+                    <div class="metric-label">Validation Accuracy</div>
+                </div>
+                <div class="metric-card">
+                    <i class="fas fa-heartbeat fa-2x"></i>
+                    <div class="metric-value">90%</div>
+                    <div class="metric-label">Recall</div>
+                </div>
+                <div class="metric-card">
+                    <i class="fas fa-layer-group fa-2x"></i>
+                    <div class="metric-value">8</div>
+                    <div class="metric-label">Blood Groups Classified</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-project-diagram"></i>
+                <h2>Model Architecture & Technical Details</h2>
+            </div>
+
+            <div class="tech-details">
+                <div class="detail-card">
+                    <h3><i class="fas fa-network-wired"></i> Base Architecture</h3>
+                    <ul>
+                        <li><strong>Transfer Learning:</strong> EfficientNetB0 as feature extractor</li>
+                        <li><strong>Custom Top Layers:</strong> GlobalAveragePooling2D → Dense (128 , ReLU) → Dropout
+                            (0.3) → Dense (64 , ReLU)
+                            → Output (8 neurons, softmax)</li>
+                        <li><strong>Fine-tuning:</strong> Last 40 layers unfrozen for specialized training</li>
+                    </ul>
+                </div>
+
+                <div class="detail-card">
+                    <h3><i class="fas fa-cogs"></i> Training Configuration</h3>
+                    <ul>
+                        <li><strong>Optimizer:</strong> Adam with learning rate 5e-5</li>
+                        <li><strong>Class Weights:</strong> Applied to handle class imbalance</li>
+                        <li><strong>Early Stopping:</strong> Applied with Patience 7</li>
+                        <li><strong>Reduce LR:</strong> Reduced LR on Plateau</li>
+                    </ul>
+                </div>
+
+                <div class="detail-card">
+                    <h3><i class="fas fa-database"></i> Dataset Information</h3>
+                    <ul>
+                        <li><strong>Total Images:</strong> 6,000 Image samples</li>
+                        <li><strong>Training:</strong> 80% for Training</li>
+                        <li><strong>Validation:</strong> 10% for Validation </li>
+                        <li><strong>Testing:</strong> 10% for Test</li>
+                        <li><strong>Resolution:</strong> 224×224 px (preprocessed)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-chart-bar"></i>
+                <h2>Performance Visualizations</h2>
+            </div>
+
+            <div class="visualization-container">
+                <div class="visualization">
+                    <div class="visualization-title">Confusion Matrix</div>
+                    <img src="{{ url_for('static', filename='CM.png') }}" 
+                        alt="Confusion Matrix"
+                        class="responsive-image">
+                </div>
+
+                <div class="visualization">
+                    <div class="visualization-title">Training & Validation Metrics</div>
+                    <img src="{{ url_for('static', filename='TVAL.png') }}"
+                        alt="Training and Validation Accuracy and Loss" 
+                        class="responsive-image">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">
+                <i class="fas fa-lightbulb"></i>
+                <h2>Key Challenges & Solutions</h2>
+            </div>
+
+            <div class="tech-details">
+                <div class="detail-card">
+                    <h3><i class="fas fa-balance-scale"></i> Class Imbalance</h3>
+                    <ul>
+                        <li>Imbalanced data with rare classes </li>
+                        <li>As a solution, applied class weighting during training</li>
+                        <li>Found better than data augmentation</li>
+                    </ul>
+                </div>
+
+                <div class="detail-card">
+                    <h3><i class="fas fa-sliders-h"></i> Hyperparameter Tuning</h3>
+                    <ul>
+                        <li>Extensive search for optimal learning rate</li>
+                        <li>Experimentation with different dropout rates</li>
+                        <li>Early stopping to prevent overfitting</li>
+                    </ul>
+                </div>
+
+                <div class="detail-card">
+                    <h3><i class="fas fa-exchange-alt"></i> Transfer Learning</h3>
+                    <ul>
+                        <li>Leveraged EfficientNetB0 pre-trained on ImageNet</li>
+                        <li>Unfroze some layers during fine-tuning</li>
+                        <li>Custom top layers for blood group specialization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="conclusion">
+            <h2>Conclusion</h2>
+            <p>Our blood group classification model demonstrates state-of-the-art performance in identifying blood
+                types.
+                By leveraging transfer learning with EfficientNetB0 and implementing strategic
+                solutions to handle class imbalance, we've created a robust system with 90% test accuracy.</p>
+            <p>The model shows particular strength in identifying common blood types (A+, O+, B+) while maintaining good
+                performance on rarer types. Our confusion matrix reveals that most misclassifications occur between
+                similar
+                blood types, primarily due to subtle visual differences that challenge even expert human analysts.</p>
+            <p>Future improvements will focus on expanding the dataset for rare blood types and exploring ensemble
+                methods
+                to further enhance the model's reliability for clinical applications.</p>
+        </div>
+    </div>
+
+    <script>
+        // Simple animation for metric cards
+        document.addEventListener('DOMContentLoaded', function () {
+            const metricCards = document.querySelectorAll('.metric-card');
+
+            metricCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.5s ease';
+
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, 300 * index);
+            });
+        });
+    </script>
+</body>
+
+</html>
