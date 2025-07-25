@@ -13,7 +13,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 app = Flask(__name__)
 
 # Load the pre-trained model
-model = tf.keras.models.load_model('./models/bg_effnet.h5')
+model = tf.keras.models.load_model("models/bg_effnet_savedmodel")
 
 # Allowed file extensions for uploads
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp'}
